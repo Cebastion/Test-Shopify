@@ -1,0 +1,43 @@
+.featured-products { padding: 60px 0; font-family: sans-serif; }
+    .featured-products-header {
+      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;
+    }
+    .section-title { font-size: 28px; font-weight: 700; margin: 0; }
+    .section-subtitle { font-size: 15px; color: #444;  margin-top: 8px; }
+
+    .slider-buttons { display: flex; gap: 20px; }
+    .slider-btn {
+      width: 32px; height: 32px;
+       cursor: pointer; transition: 0.3s;
+    }
+    .slider-btn:hover { background: #f5f5f5; }
+
+    .featured-products-slider { overflow: hidden; }
+    .slider-track { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 8px 0; }
+
+    .featured-card {
+      flex: 0 0 auto; min-width: 240px; border: 1px solid #e0e0e0; border-radius: 12px;
+      background: #fff; position: relative; text-align: left; overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .featured-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .featured-card .image img {
+      width: 100%; max-height: 300px; 
+    }
+    .featured-card .info { padding: 10px 14px; }
+    .featured-card .rating { color: #f5b400; font-size: 13px; }
+    .featured-card .rating span { color: #222; font-size: 13px; margin-left: 4px; }
+    .featured-card .title {
+      font-weight: 600; display: block; color: #111; text-decoration: none; margin: 6px 0;
+    }
+    .featured-card .desc { font-size: 13px; color: #555; margin: 0 0 6px; }
+    .featured-card .price { font-size: 15px; font-weight: 600; }
+    .featured-card .price .old { text-decoration: line-through; color: #999; margin-right: 6px; }
+
+    .tag {
+      position: absolute; top: 8px; left: 8px; padding: 3px 6px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; color: #fff;
+    }
+    .tag.sale { background: #e53935; }
+    .tag.new { background: #43a047; }
