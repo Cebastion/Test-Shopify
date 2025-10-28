@@ -1,0 +1,39 @@
+    {{ 'featured-products.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'featured-products.js' | asset_url }}" defer="defer"></script>
+
+<section class="featured-products" id="FeaturedProducts-{{ section.id }}" 
+         data-section-id="{{ section.id }}" 
+         {% if product %}data-product-id="{{ product.id }}"{% endif %} 
+         data-limit="{{ section.settings.limit }}">
+  <div class="page-width">
+    <div class="featured-products-header">
+      <div>
+          <h2 class="section-title">Featured products</h2>
+        <p class="section-subtitle">
+          Lorem ipsum odor amet, consectetuer adipiscing elit. Suscipit lectus cursus phasellus ridiculus nostra fames. Sollicitudin mi facilisi congue tellus dictumst eu ligula arcu. Vivamus luctus vel duis tempor curabitur potenti rhoncus. Orci dictum et varius feugiat pulvinar euismod iaculis diam. Lacus inceptos vel fusce interdum molestie luctus cubilia.
+        </p>
+      </div>
+      <div class="slider-buttons">
+        <div class="slider-btn prev"><img src="{{ 'Caret_Circle_Left.png' | asset_url }}" width="32" height="32"></div>
+        <div class="slider-btn next"><img src="{{ 'Caret_Circle_Right.png' | asset_url }}" width="32" height="32"></div>
+      </div>
+    </div>
+    <div class="featured-products-slider">
+      <div class="slider-track"></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured Products Slider",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Section title", "default": "Recommended products" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover our top picks and customer favorites below." },
+    { "type": "range", "id": "limit", "label": "Number of products", "default": 6, "min": 1, "max": 12, "step": 1 },
+    { "type": "collection", "id": "collection", "label": "Fallback collection (optional)" }
+  ],
+  "presets": [
+    { "name": "Featured Products Slider" }
+  ]
+}
+{% endschema %}
