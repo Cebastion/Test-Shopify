@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cardWidth = 260;
     let products = [];
 
+    // Загрузка рекомендованных продуктов
     if (productId) {
       try {
         const res = await fetch(`${window.Shopify.routes.root}recommendations/products.json?product_id=${productId}&limit=${limit}`);
@@ -22,27 +23,34 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
+    // Фолбэк если ничего не пришло
     if (!products.length) {
-      // fallback products
       products = [
-        {"title":"Elastic Overalls Beige","url":"/products/elastic-overalls-beige","featured_image":"https://cdn.shopify.com/s/files/1/0833/5955/9013/files/elastic-overalls-beige.jpg","price":8900,"compare_at_price":10900},
-        {"title":"Classic Denim Jacket","url":"/products/classic-denim-jacket","featured_image":"https://cdn.shopify.com/s/files/1/0833/5955/9013/files/classic-denim-jacket.jpg","price":12900,"compare_at_price":0},
-        {"title":"Slim Fit Pants Black","url":"/products/slim-fit-pants-black","featured_image":"https://cdn.shopify.com/s/files/1/0833/5955/9013/files/slim-fit-pants-black.jpg","price":7400,"compare_at_price":9900}
+        {"title":"Elastic Overalls Beige","url":"/products/elastic-overalls-beige","featured_image":"","price":8900,"compare_at_price":10900},
+        {"title":"Classic Denim Jacket","url":"/products/classic-denim-jacket","featured_image":"","price":12900,"compare_at_price":0},
+        {"title":"Slim Fit Pants Black","url":"/products/slim-fit-pants-black","featured_image":"","price":7400,"compare_at_price":9900},
+        {"title":"Elastic Overalls Beige","url":"/products/elastic-overalls-beige","featured_image":"","price":8900,"compare_at_price":10900},
+        {"title":"Classic Denim Jacket","url":"/products/classic-denim-jacket","featured_image":"","price":12900,"compare_at_price":0},
+        {"title":"Slim Fit Pants Black","url":"/products/slim-fit-pants-black","featured_image":"","price":7400,"compare_at_price":9900},
+        {"title":"Elastic Overalls Beige","url":"/products/elastic-overalls-beige","featured_image":"","price":8900,"compare_at_price":10900},
+        {"title":"Classic Denim Jacket","url":"/products/classic-denim-jacket","featured_image":"","price":12900,"compare_at_price":0},
+        {"title":"Slim Fit Pants Black","url":"/products/slim-fit-pants-black","featured_image":"","price":7400,"compare_at_price":9900},
+        {"title":"Elastic Overalls Beige","url":"/products/elastic-overalls-beige","featured_image":"","price":8900,"compare_at_price":10900},
+        {"title":"Classic Denim Jacket","url":"/products/classic-denim-jacket","featured_image":"","price":12900,"compare_at_price":0},
+        {"title":"Slim Fit Pants Black","url":"/products/slim-fit-pants-black","featured_image":"","price":7400,"compare_at_price":9900},
       ];
     }
 
     container.innerHTML = '';
+
     products.forEach((p, i) => {
       const price = p.price / 100;
       const compare = (p.compare_at_price || 0) / 100;
       const sale = compare > price;
       const isNew = i === 1;
       const priceHTML = sale
-        ? `<span class="old">$${compare.toFixed(2)}</span> <span class="new">$${price.toFixed(2)}</span>`
-        : `<span class="new">$${price.toFixed(2)}</span>`;
-
-      // Изображение
-      const imgSrc = p.featured_image ? (p.featured_image.startsWith('//') ? 'https:' + p.featured_image : p.featured_image) : '';
+        ? `<span class="old">${compare.toFixed(2)}</span> <span class="new">${price.toFixed(2)}</span>`
+        : `<span class="new">${price.toFixed(2)}</span>`;
 
       // Описание
       let desc = '';
@@ -51,13 +59,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Рейтинг
       let rating = 0;
-      if (p.metafields && p.metafields.custom && p.metafields.custom.rating) {
-        rating = p.metafields.custom.rating;
-      } else {
-        rating = Math.round((4 + Math.random()) * 10) / 10; // fallback 4.0-5.0
-      }
+      if (p.metafields?.custom?.rating) rating = p.metafields.custom.rating;
+      else rating = Math.round((4 + Math.random()) * 10) / 10;
       const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
 
+      // ✅ Заглушка
+      const imgSrc = p.featured_image
+        ? p.featured_image
+        : 'https://cdn.shopify.com/s/files/1/0789/5433/2381/files/photo.jpg?v=1761717992';
+
+      // ✅ Генерация карточки
       container.innerHTML += `
         <div class="featured-card">
           ${sale ? `<div class="tag sale">Save $${(compare - price).toFixed(0)}</div>` : ''}
@@ -68,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="info">
             <div class="rating">${stars} <span>${rating}</span></div>
             <a href="${p.url}" class="title">${p.title}</a>
-            ${desc ? `<p class="desc">${desc}</p>` : ''}
+            ${desc ? `<p class="desc">{desc}</p>` : ''}
             <div class="price">${priceHTML}</div>
           </div>
         </div>
